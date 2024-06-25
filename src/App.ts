@@ -15,7 +15,7 @@ class App {
 
   routes() {
     this.app.get("/", (req, res) => {
-      return res.json({ message: "Hello World" });
+      res.send(200).json({ message: "Hello World" });
     });
   }
 }
