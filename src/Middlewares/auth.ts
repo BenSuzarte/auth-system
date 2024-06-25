@@ -32,11 +32,16 @@ class AuthMiddleware {
       const decoded = verify(token, tokenKey)
       const { id } = decoded as ITokenPayLoad;
 
-      req.userId = id;
+      req.headers["userId"] = id;
+      next();
 
     } catch (error) {
+
       return res.status(401).json( { error: "Token inválido" } )
+
     }
 
   }
 }
+
+export default new AuthMiddleware();

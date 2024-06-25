@@ -2,6 +2,7 @@ import { Routes } from "@/routes/Router";
 import getUsers from "@/controllers/User/get-users/index"
 import createUser from "@/controllers/User/create/index"
 import authUser from "@/controllers/User/auth/index"
+import authMiddleware from "@/middlewares/auth"
 
 class UserRouter extends Routes {
 
@@ -27,7 +28,7 @@ class UserRouter extends Routes {
   
   /* Place all routes of this system */
   /* Obs¹: Remember of put new route in the right section */
-  getAll() { this.router.get(this.path, getUsers.handle) }
+  getAll() { this.router.get(this.path, authMiddleware.index, getUsers.handle) }
   create() { this.router.post(this.path, createUser.handle) }
   auth(path: string) { this.router.post(path, authUser.handle) }
 }
