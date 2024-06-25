@@ -1,5 +1,5 @@
 import express, { Application } from "express";
-import userRouter from "@/routes/user"
+import userRouter from "@/routes/User/user"
 
 class App {
   app: Application;
