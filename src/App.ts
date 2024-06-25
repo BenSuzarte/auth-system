@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import userRouter from "@/routes/user"
 
 class App {
   app: Application;
@@ -14,9 +15,7 @@ class App {
   }
 
   routes() {
-    this.app.get("/", (req, res) => {
-      res.send(200).json({ message: "Hello World" });
-    });
+    this.app.use(userRouter)
   }
 }
 
