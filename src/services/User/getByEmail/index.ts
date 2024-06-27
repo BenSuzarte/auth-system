@@ -2,7 +2,7 @@ import prisma from "@/prisma"
 
 class GetUserByEmail {
   async handle(email: string) {
-    const user = await prisma.user.findUnique({ where: { email } })
+    const user = await prisma.user.findUnique({ where: { email: email } })
     if (!user) {
       return { status: 404 }
     }

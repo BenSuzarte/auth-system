@@ -1,28 +1,29 @@
-import { IEditUser } from "@/models/User/edit";
+import { IEditUser } from '@/models/User/edit/index';
 import prisma from "@/prisma";
 
 class EditUserService {
   async execute(body: IEditUser) {
-    if (!body) {
-      throw new Error("Erro interno");
+    const { id, name, email } = body
+
+    const isUser = await prisma.user.findUnique({ where: { id: id } })
+
+    if(!isUser) {
+      throw new Error("Usuário não existe no nosso banco de dados")
     }
-  
-    const fieldToUpdate = body.fieldToUpdate as keyof IEditUser;
-  
-    const user = await prisma.user.update({
-      where: {
-        id: body.id,
-      },
+
+    const updatedUser = await prisma.user.update({
+      where: { id: id },
       data: {
-        [fieldToUpdate]: body[fieldToUpdate],
-      },
-    });
+        name,
+        email
+      }
+    })
 
-    if(!user) {
-      throw new Error("Erro ao editar usuário")
+    if (!updatedUser) {
+      throw new Error("Erro ao editar seu usuário")
     }
 
-    return user
+    return updatedUser
   }
 }
 

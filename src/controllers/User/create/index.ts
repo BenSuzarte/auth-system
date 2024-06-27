@@ -9,9 +9,9 @@ class CreateUserController {
     const { name, email, password } = req.body as { name: string, email: string, password: string }
     const hash_password = await hash(password, 8)
 
-    const userExists = getByEmail.handle(email);
+    const userExists = await getByEmail.handle(email);
 
-    if((await userExists).status == 200) {
+    if(userExists.status == 200) {
       return res.status(404).json({ message: "Usuário já foi cadastrado no nosso banco de dados"})
     }
 
