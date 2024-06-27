@@ -36,9 +36,9 @@ class UserRouter extends Routes {
   /* Place all routes of this system */
   /* Obs¹: Remember of put new route in the right section */
   getAll() { this.router.get(this.path, authMiddleware.index, getUsers.handle) }
-  create() { this.router.post(this.path, createUser.handle) }
-  edit() { this.router.put(this.path, editUser.handle) }
+  edit() { this.router.put(this.path, authMiddleware.index, editUser.handle) }
   auth(path: string) { this.router.post(path, authUser.handle) }
+  create() { this.router.post(this.path, createUser.handle) }
 }
 
 export default new UserRouter().router;
