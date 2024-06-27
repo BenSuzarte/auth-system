@@ -2,7 +2,7 @@
 
 ## **About**
 
-It's an api to study jsonebtoken (jwt) and prisma connect in MongoDB Atlas server with AWS server.
+It's an api to study jsonebtoken (jwt) and prisma connection in MongoDB Atlas server with AWS server.
 
 ## **How I use the API?**
 
