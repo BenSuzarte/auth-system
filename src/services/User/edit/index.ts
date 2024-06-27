@@ -11,11 +11,14 @@ class EditUserService {
       throw new Error("Usuário não existe no nosso banco de dados")
     }
 
+    const updatedTime = new Date();
+
     const updatedUser = await prisma.user.update({
       where: { id: id },
       data: {
         name,
-        email
+        email,
+        updated_at: updatedTime
       }
     })
 

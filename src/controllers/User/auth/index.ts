@@ -1,5 +1,4 @@
-import prisma from "@/prisma";
-import getByEmail from "@/services/User/getByEmail";
+import getByEmail from "@/services/User/get-by-email";
 import { compare } from "bcryptjs";
 import { Request, Response } from "express";
 import { sign } from "jsonwebtoken";
@@ -8,15 +7,15 @@ class AuthController {
   async handle(req: Request, res: Response, ) {
 
     const { email, password } = req.body as { email: string, password: string };
-    const isUser = await getByEmail.handle(email)
+    const isUser = await getByEmail.execute(email)
 
-    if (!isUser.user) {
+    if (!isUser) {
       return res.status(404).json({ message: "Usuário não encontrado no nosso banco de dados"})
     }
 
-    const isValuePasswoord = await compare(password, isUser.user.password);
+    const isValuePassword = await compare(password, isUser.password);
 
-    if (!isValuePasswoord) {
+    if (!isValuePassword) {
       return res.status(400).json({ message: "Senha incorreta!" })
     }
 
@@ -25,8 +24,8 @@ class AuthController {
       return
     }
 
-    const token = sign({ id: isUser.user.id }, tokenKey, { expiresIn: "1d" })
-    const { id } = isUser.user;
+    const token = sign({ id: isUser.id }, tokenKey, { expiresIn: "1d" })
+    const { id } = isUser;
 
     return res.status(202).json({user: { id, email }, token})
 
