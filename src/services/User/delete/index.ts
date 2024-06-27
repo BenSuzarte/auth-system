@@ -7,4 +7,4 @@ class DeleteUserService {
   }
 }
 
-export default new DeleteUser();
+export default new DeleteUserService();
