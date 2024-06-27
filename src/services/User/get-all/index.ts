@@ -1,6 +1,6 @@
 import prisma from "@/prisma";
 
-class GetAllUsers {
+class GetAllUsersService {
   async execute() {
     const users = await prisma.user.findMany();
     if(!users) {
@@ -11,4 +11,4 @@ class GetAllUsers {
   }
 }
 
-export default new GetAllUsers();
+export default new GetAllUsersService();
