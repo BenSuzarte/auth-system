@@ -4,6 +4,7 @@ import createUser from "@/controllers/User/create/index"
 import authUser from "@/controllers/User/auth/index"
 import authMiddleware from "@/middlewares/auth"
 import editUser from "@/controllers/User/edit/index"
+import deleteUser from "@/controllers/User/delete"
 
 class UserRouter extends Routes {
 
@@ -15,6 +16,7 @@ class UserRouter extends Routes {
     this.getRoutes();
     this.postRoutes();
     this.putRoutes();
+    this.deleteRoutes();
   }
 
   /* Place all GET routes of this system */
@@ -32,9 +34,15 @@ class UserRouter extends Routes {
   putRoutes() {
     this.edit();
   }
+
+  /* Place all DELETE routes of this system */
+  deleteRoutes() {
+    this.delete(this.path + "/:id");
+  }
   
   /* Place all routes of this system */
   /* Obs¹: Remember of put new route in the right section */
+  delete(path: string) { this.router.delete(path, authMiddleware.index, deleteUser.handle) }
   getAll() { this.router.get(this.path, authMiddleware.index, getUsers.handle) }
   edit() { this.router.put(this.path, authMiddleware.index, editUser.handle) }
   auth(path: string) { this.router.post(path, authUser.handle) }
